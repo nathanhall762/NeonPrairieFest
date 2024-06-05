@@ -27,22 +27,45 @@ const title = 'Neon Prairie Fest Artists';
     </title>
     <ViewTransitions />
   </head>
-  <body>
-    <main class='bg-neutral-8'>
+  <body class='flex flex-col min-h-screen justify-stretch items-center'>
+    <header class="hidden sm:inline">
+      <img
+        src='/NeonPrairieFestHeaderMockup.webp'
+        alt='Neon Prairie Fest Header Mockup'
+        class="w-screen object-cover"
+      />
+    </header>
+    <header class="inline sm:hidden">
+      <img
+        src='/NeonPrarieMobileHeader.webp'
+        alt='Neon Prairie Fest Header Mockup'
+      />
+    </header>
+    <main class="w-screen">
+      <!-- <div class="inset-0 bg-[var(--color-background-main)] bg-opacity-60"> -->
       <slot />
+      <!-- </div> -->
     </main>
+
+    <footer class="fixed bottom-0 bg-[var(--color-background-main)] z-50">
+      <img
+        src='/NeonPrairieFestFooterMockup.webp'
+        alt='Neon Prairie Fest Footer Mockup'
+        class="w-screen object-cover"
+      />
+    </footer>
     <style is:global>
       :root {
         font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
         line-height: 1.5;
         font-weight: 400;
 
-        --color-background-main: hsl(249, 11%, 12%);
+        --color-background-main: #360046;
         --color-background-main-trans: hsla(249, 11%, 12%, 0.8);
         --color-background-alt: hsl(249, 11%, 15%);
-        --color-primary: #ecb028;
+        --color-primary: #ff722e;
         --color-secondary: #1d324f;
-        --color-accent: #c82735;
+        --color-accent: #00E6ED;
 
         --color-text-primary: #e9f1f7;
         --color-text-secondary: #c9d1d9;
@@ -74,6 +97,8 @@ const title = 'Neon Prairie Fest Artists';
           #f56040
         );
 
+        cursor: url(/NeonPrairieCursor.png) 16 16, auto;
+
         color: var(--color-text-primary);
         background-color: var(--color-background-main);
 
@@ -87,6 +112,10 @@ const title = 'Neon Prairie Fest Artists';
         -moz-osx-font-smoothing: grayscale;
         -webkit-text-size-adjust: 100%;
       }
+
+      /* main {
+        background-image: url('/white-grungy-wall-textured-background.webp');
+      } */
 
       a {
         font-weight: 500;
@@ -244,5 +273,6 @@ const title = 'Neon Prairie Fest Artists';
         display: none;
       }
     </style>
-  </body><!-- custom animation keyframes and other global stuffs -->
+    <!-- custom animation keyframes and other global stuffs -->
+  </body>
 </html>

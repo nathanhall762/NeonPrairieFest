@@ -19,6 +19,7 @@ export type Musician = {
   };
   genre: string[];
   profileImage: string;
+  profileImageSmall: string;
 };
 
 type CardContainerProps = {

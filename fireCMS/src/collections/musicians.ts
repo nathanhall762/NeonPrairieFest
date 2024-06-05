@@ -32,6 +32,16 @@ export const MusicianCollection: EntityCollection = {
             propertyConfig: 'file_upload',
             description: 'Profile image of the musician',
         },
+        profileImageSmall: {
+            name: 'Profile Image',
+            dataType: 'string',
+            storage: {
+                storagePath: 'musicians/profile_images_small',
+                storeUrl: true,
+            },
+            propertyConfig: 'file_upload',
+            description: 'Profile image of the musician',
+        },
         genre: {
             name: 'Genre',
             dataType: 'array',
