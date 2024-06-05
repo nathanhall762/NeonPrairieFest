@@ -1,0 +1,28 @@
+---
+// import type { DocumentData } from 'firebase/firestore';
+// import ReactRouter from 'react-router';
+import { getData } from '../firebase';
+import BaseLayout from './BaseLayout.astro';
+import CardContainer, {
+  type Musician,
+} from '../components/MusicianCard/CardContainer';
+import MusicianPage from '../components/MusicianPage/MusicianPage.tsx';
+
+const { musicianID } = Astro.props;
+
+export async function getServerData(musicianID: string): Promise<Musician> {
+	console.log('musicianID', musicianID);
+  const data = (await getData('musician', musicianID)) as Musician[];
+  return data[0];
+}
+
+const musicianData = (await getServerData(musicianID)) as Musician;
+console.log(musicianData);
+---
+
+<BaseLayout>
+  <MusicianPage
+    musician={musicianData}
+    client:only='react'
+  />
+</BaseLayout>

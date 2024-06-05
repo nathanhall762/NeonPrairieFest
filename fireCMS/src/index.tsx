@@ -1,12 +1,10 @@
 import type { FireCMSAppConfig } from "@firecms/cloud";
-import { BusinessInformationCollection } from "./collections/businessInformation";
-import { PagesCollection } from "./collections/pagesCollection";
+import { MusicianCollection } from "./collections/musicians";
 
 const appConfig: FireCMSAppConfig = {
     version: "1",
     collections: [
-        BusinessInformationCollection,
-        PagesCollection
+        MusicianCollection
     ],
     propertyConfigs: [{
         name: "String with color",

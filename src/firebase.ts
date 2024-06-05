@@ -1,5 +1,4 @@
-import { getAnalytics } from 'firebase/analytics';
-import { initializeApp } from 'firebase/app';
+import { initializeApp, getApps } from 'firebase/app';
 import type { DocumentData } from 'firebase/firestore';
 import {
   getFirestore,
@@ -16,25 +15,21 @@ const firebaseConfig = {
   storageBucket: import.meta.env.PUBLIC_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.PUBLIC_FIREBASE_APP_ID,
-  measurementId: import.meta.env.PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
-
-const app = initializeApp(firebaseConfig);
+console.log(firebaseConfig);
+// Initialize Firebase app if it hasn't been initialized already
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+console.log(app);
 const db = getFirestore(app);
-export function initAnalytics() {
-  if (window !== undefined) {
-    getAnalytics(app);
-  }
-}
 export const getData = async (
   collectionName: string,
-  slug?: string
+  ID?: string
 ): Promise<DocumentData[]> => {
   let q;
 
-  if (slug) {
+  if (ID) {
     // If a category filter is provided, create a query with a where filter
-    q = query(collection(db, collectionName), where('slug', '==', slug));
+    q = query(collection(db, collectionName), where('id', '==', ID));
   } else {
     // If no category is provided, fetch all documents from the specified collection
     q = collection(db, collectionName);

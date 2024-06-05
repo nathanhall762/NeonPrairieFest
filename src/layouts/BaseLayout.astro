@@ -1,47 +1,29 @@
 ---
-import Header from '../components/shared/Header';
-import Footer from '../components/shared/Footer';
 import { ViewTransitions } from 'astro:transitions';
-import { getData } from '../firebase';
-import { navs } from '../navMenu';
 
-export interface Item {
-  type: string;
-  value: any;
-}
-
-interface Props {
-  title: string;
-  metaDescription: string;
-}
-
-const { title, metaDescription } = Astro.props;
-
-const businessInformation = await getData('business_information');
+const title = 'Neon Prairie Fest Artists';
 ---
 
 <!doctype html>
 <html
   lang='en'
-  class='scroller dark bg-neutral-9 font-sans font-light text-neutral-9'
->
+  class='dark bg-neutral-9 font-sans font-light text-neutral-9 scroller'>
   <head>
     <meta charset='UTF-8' />
-    <meta name='description' content={metaDescription} />
-    <meta name='viewport' content='width=device-width' />
-    <meta name='generator' content={Astro.generator} />
-    <link
-      rel='icon'
-      type='image/png'
-      sizes='32x32'
-      href={businessInformation[0].favicon.favicon_32_x32}
+    <meta
+      name='description'
+      content=''
+    />
+    <meta
+      name='viewport'
+      content='width=device-width'
+    />
+    <meta
+      name='generator'
+      content={Astro.generator}
     />
     <title>
-      {
-        title
-          ? `${title} - ${businessInformation[0].business_name}`
-          : businessInformation[0].business_name
-      }
+      {title}
     </title>
     <ViewTransitions />
     <!-- TODO structed data -->
@@ -118,77 +100,220 @@ const businessInformation = await getData('business_information');
     </script>
   </head>
   <body>
-    <Header
-      phone={businessInformation[0].business_phone}
-      address={businessInformation[0].business_address}
-      addressLink={businessInformation[0].google_maps_link}
-      email={businessInformation[0].business_contact_email}
-      socials={businessInformation[0].socials}
-      navs={navs.filter((nav) => nav.link !== '/')}
-      logo={businessInformation[0].business_logo}
-      client:load
-    />
     <main class='bg-neutral-8'>
       <slot />
     </main>
-    <Footer
-      address={businessInformation[0].business_address}
-      copyright=`${businessInformation[0].business_name} 2024`
-      email={businessInformation[0].business_contact_email}
-      navs={navs}
-      phone={businessInformation[0].business_phone}
-      socials={businessInformation[0].socials}
-    />
     <style is:global>
       :root {
-        --primary-hue: 180;
-        --primary-saturation: 92;
-        --neutral-hue: 240;
-        --neutral-saturation: 5;
-      }
+        font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+        line-height: 1.5;
+        font-weight: 400;
 
-      body {
-        @apply text-neutral-9 dark:text-neutral-1;
+        --color-background-main: hsl(249, 11%, 12%);
+        --color-background-main-trans: hsla(249, 11%, 12%, 0.8);
+        --color-background-alt: hsl(249, 11%, 15%);
+        --color-primary: #ecb028;
+        --color-secondary: #1d324f;
+        --color-accent: #c82735;
+
+        --color-text-primary: #e9f1f7;
+        --color-text-secondary: #c9d1d9;
+        --color-text-inverse: #fff;
+
+        --color-success: #2ea44f;
+        --color-danger: #cb2431;
+        --color-warning: #fca321;
+
+        --color-shadow: rgba(0, 0, 0, 0.1);
+        --color-border: var(--color-background-alt);
+
+        --bandcamp-color: #1da1f2;
+        --spotify-color: #1db954;
+        --youtube-color: #ff0000;
+        --soundcloud-color: #ff5500;
+        --facebook-color: #1877f2;
+        --tiktok-color: #000000;
+        --twitch-color: #9146ff;
+        --threads-color: #808080;
+        --instagram-gradient: linear-gradient(
+          45deg,
+          #405de6,
+          #5851db,
+          #833ab4,
+          #c13584,
+          #e1306c,
+          #fd1d1d,
+          #f56040
+        );
+
+        color: var(--color-text-primary);
+        background-color: var(--color-background-main);
+
+        --animation-speed-slow: 2s;
+        --animation-speed-medium: 0.5s;
+        --animation-speed-fast: 0.1s;
+
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-text-size-adjust: 100%;
       }
 
       a {
-        @apply transition-transform duration-fast ease-in-out;
+        font-weight: 500;
+        color: var(--color-primary);
+        text-decoration: inherit;
       }
 
       a:hover {
-        @apply scale-md;
+        color: var(--color-accent);
       }
 
-      strong {
-        font-weight: bold;
-      }
-
-      h1 {
-        @apply text-3xl font-semibold lg:text-4xl;
-      }
-
-      h2 {
-        @apply text-2xl font-semibold lg:text-3xl;
-      }
-
-      h3 {
-        @apply text-xl font-semibold lg:text-2xl;
-      }
-
-      h4 {
-        @apply text-lg font-semibold lg:text-xl;
-      }
-
-      h5 {
-        @apply text-base font-semibold lg:text-lg;
-      }
-
-      h6 {
-        @apply text-base font-semibold lg:text-lg;
+      body {
+        margin: 0;
+        place-items: center;
+        min-width: 320px;
+        min-height: 100vh;
       }
 
       p {
-        @apply text-base leading-loose lg:text-lg lg:leading-loose;
+        margin: 0;
+      }
+
+      h1 {
+        font-size: 3.2em;
+        line-height: 1.1;
+      }
+
+      h2 {
+        margin: 0;
+      }
+      iframe {
+        border: none;
+        opacity: 0.8;
+      }
+
+      .spacer {
+        height: 8vh;
+      }
+
+      .header-wrapper {
+        position: fixed;
+        width: 100vw;
+        height: 8vh;
+        z-index: 98;
+        background-color: var(--color-background-alt);
+        box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.25);
+        @media (max-width: 1000px) {
+          height: 8vh;
+        }
+      }
+
+      .logo {
+        height: 12vh;
+        width: 12vh;
+        border-radius: 100%;
+        position: fixed;
+        padding: 0.25em;
+        margin-left: 0.5em;
+        box-sizing: border-box;
+        z-index: 99;
+        @media (max-width: 1000px) {
+          box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.25);
+          margin-left: 0.5em;
+          height: 8vh;
+          width: 8vh;
+        }
+      }
+
+      .short-title-wrapper {
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+      }
+
+      .short-title {
+        padding: 0;
+        margin: 0;
+        text-align: center;
+        display: none;
+        font-size: 20px;
+        height: 100%;
+        position: absolute;
+        justify-content: center;
+        align-items: center;
+        color: var(--color-text-primary);
+      }
+
+      .title {
+        color: var(--color-primary);
+        font-size: 2.5rem;
+        padding: 0;
+        @media (max-width: 800px) {
+          display: none;
+        }
+      }
+
+      .title-link {
+        @media (max-width: 800px) {
+          display: none;
+        }
+        display: flex;
+        align-items: center;
+        @media (max-width: 1000px) {
+          padding-left: 15vh;
+        }
+      }
+
+      .title-link h2 {
+        display: flex;
+        font-size: 1.3rem;
+        color: var(--color-text-primary);
+        padding: 0;
+        margin: 0 0 0 2rem;
+        opacity: 80%;
+        transition: all var(--animation-speed-medium) ease-in-out;
+        @media (max-width: 1100px) {
+          display: none;
+        }
+        &:hover {
+          opacity: 100%;
+        }
+      }
+
+      .top-header {
+        display: flex;
+        justify-content: space-between;
+        padding-left: 11vw;
+        margin-right: 0;
+        height: 8vh;
+        align-items: center;
+        @media (max-width: 1000px) {
+          height: 8vh;
+          width: 100vw;
+          padding: 0;
+        }
+      }
+
+      .navbar {
+        display: none;
+      }
+
+      .card-container {
+        display: none;
+      }
+
+      .add-button {
+        display: none;
+      }
+
+      .genreFilter {
+        display: none;
+      }
+
+      .heroWrapper {
+        display: none;
       }
     </style>
   </body><!-- custom animation keyframes and other global stuffs -->
