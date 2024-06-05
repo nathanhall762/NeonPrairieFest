@@ -10,19 +10,14 @@ import MusicianPage from '../components/MusicianPage/MusicianPage.tsx';
 
 const { musicianID } = Astro.props;
 
-export async function getServerData(musicianID: string): Promise<Musician> {
-	console.log('musicianID', musicianID);
-  const data = (await getData('musician', musicianID)) as Musician[];
-  return data[0];
-}
+const musicianData = (await getData('musicians', musicianID)) as Musician[];
 
-const musicianData = (await getServerData(musicianID)) as Musician;
-console.log(musicianData);
+console.log(`musicianData`, musicianData);
 ---
 
 <BaseLayout>
   <MusicianPage
-    musician={musicianData}
-    client:only='react'
+    musician={musicianData[0]}
+    client:load
   />
 </BaseLayout>

@@ -1,19 +1,9 @@
 import LinkItem from './LinkItemPage';
-import styled from 'styled-components';
 import { type Musician } from '../MusicianCard/CardContainer';
 
 interface MusicianCardProps {
   musician: Musician;
 }
-
-const LinkContainerBody = styled.div`
-  display: flex;
-  box-sizing: border-box;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 100%;
-  padding: 0 10px;
-`;
 
 const LinkContainer: React.FC<MusicianCardProps> = ({ musician }) => {
   const {
@@ -27,6 +17,7 @@ const LinkContainer: React.FC<MusicianCardProps> = ({ musician }) => {
     );
     return match ? match[1] : null;
   }
+  if (!bandcamp) return null;
   const bandcampURL = extractBandcampURL(bandcamp);
 
   function extractSoundcloudProfileURL(embedCode: string): string | null {
@@ -38,55 +29,54 @@ const LinkContainer: React.FC<MusicianCardProps> = ({ musician }) => {
 
   const soundcloudProfileURL = extractSoundcloudProfileURL(soundcloud);
   return (
-    <>
-      <LinkContainerBody>
-        <LinkItem
-          url={bandcampURL}
-          iconClassName='fa fa-bandcamp'
-          styleClassName='bandcamp'
-        />
-        <LinkItem
-          url={spotify}
-          iconClassName='fa fa-spotify'
-          styleClassName='spotify'
-        />
-        <LinkItem
-          url={youtube}
-          iconClassName='fa fa-youtube'
-          styleClassName='youtube'
-        />
-        <LinkItem
-          url={soundcloudProfileURL}
-          iconClassName='fa fa-soundcloud'
-          styleClassName='soundcloud'
-        />
-        <LinkItem
-          url={facebook}
-          iconClassName='fa fa-facebook'
-          styleClassName='facebook'
-        />
-        <LinkItem
-          url={instagram}
-          iconClassName='fa fa-instagram'
-          styleClassName='instagram'
-        />
-        <LinkItem
-          url={tiktok}
-          iconClassName='fa-brands fa-tiktok'
-          styleClassName='tiktok'
-        />
-        <LinkItem
-          url={threads}
-          iconClassName='fa-brands fa-threads'
-          styleClassName='threads'
-        />
-        <LinkItem
-          url={twitch}
-          iconClassName='fa fa-twitch'
-          styleClassName='twitch'
-        />
-      </LinkContainerBody>
-    </>
+    <div className='relative z-10 flex w-full flex-wrap justify-center p-0 sm:p-10'>
+      hello
+      <LinkItem
+        url={bandcampURL}
+        iconClassName='fa fa-bandcamp'
+        styleClassName='bandcamp'
+      />
+      <LinkItem
+        url={spotify}
+        iconClassName='fa fa-spotify'
+        styleClassName='spotify'
+      />
+      <LinkItem
+        url={youtube}
+        iconClassName='fa fa-youtube'
+        styleClassName='youtube'
+      />
+      <LinkItem
+        url={soundcloudProfileURL}
+        iconClassName='fa fa-soundcloud'
+        styleClassName='soundcloud'
+      />
+      <LinkItem
+        url={facebook}
+        iconClassName='fa fa-facebook'
+        styleClassName='facebook'
+      />
+      <LinkItem
+        url={instagram}
+        iconClassName='fa fa-instagram'
+        styleClassName='instagram'
+      />
+      <LinkItem
+        url={tiktok}
+        iconClassName='fa-brands fa-tiktok'
+        styleClassName='tiktok'
+      />
+      <LinkItem
+        url={threads}
+        iconClassName='fa-brands fa-threads'
+        styleClassName='threads'
+      />
+      <LinkItem
+        url={twitch}
+        iconClassName='fa fa-twitch'
+        styleClassName='twitch'
+      />
+    </div>
   );
 };
 

@@ -1,6 +1,5 @@
 ---
 import type { DocumentData } from 'firebase/firestore';
-import ReactRouter from 'react-router';
 import { getData } from '../firebase';
 import BaseLayout from './BaseLayout.astro';
 import CardContainer, { type Musician } from '../components/MusicianCard/CardContainer';
@@ -14,5 +13,5 @@ const musicians = await getData('musicians') as Musician[];
 ---
 
 <BaseLayout>
-    <CardContainer musicians={musicians} client:only/>
+    <CardContainer musicians={musicians} client:load/>
 </BaseLayout>

@@ -26,11 +26,10 @@ type CardContainerProps = {
 };
 
 const CardContainer = ({ musicians }: CardContainerProps) => {
-
   console.log(musicians);
 
   return (
-    <CardContainerDiv className='card-container'>
+    <div className='flex flex-wrap justify-center mx-auto p-4 text-center w-11/12'>
       {musicians.map((musician) => (
         <MusicianCard
           key={musician.name}
@@ -38,18 +37,8 @@ const CardContainer = ({ musicians }: CardContainerProps) => {
           isPending={false}
         />
       ))}
-    </CardContainerDiv>
+    </div>
   );
 };
-
-const CardContainerDiv = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 0 auto;
-  padding: rem;
-  text-align: center;
-  width: 90%;
-`;
 
 export default CardContainer;

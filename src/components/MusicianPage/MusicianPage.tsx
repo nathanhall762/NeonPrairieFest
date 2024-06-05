@@ -1,15 +1,6 @@
-import { useParams } from 'react-router-dom';
-// import styles from '../css/MusicianPage.module.css';
 import EmbedSelector from './EmbedSelector';
-import { Link } from 'react-router-dom';
 import LinkContainer from './LinkContainerPage';
-import { styled } from 'styled-components';
-import {
-  CardTitle as CardTitleBase,
-  Genres,
-  CardImage,
-} from '../MusicianCard/MusicianCard';
-import type { Musician } from '../MusicianCard/CardContainer';
+import { type Musician } from '../MusicianCard/CardContainer';
 
 interface Props {
   musician: Musician;
@@ -21,150 +12,35 @@ const MusicianPage: React.FC<Props> = ({ musician }) => {
 
   return (
     <>
-      <MusicianPageBody>
-        <MusicianPageContainerA backgroundImage={profileImage}>
-          <Link to='/' aria-label='homepage'>
-            <BackButton>Go Back</BackButton>
-          </Link>
-          <CardImage src={profileImage} alt={name} loading='lazy' />
-          <CardTitle>{name}</CardTitle>
-          <EmbedContainerA>
+      <div className="flex flex-col w-screen h-[92vh] box-border">
+        <div
+          className="flex flex-col items-center text-center justify-center p-8 w-full sm:w-1/3 bg-cover bg-center relative"
+          style={{ backgroundImage: `url(${profileImage})` }}
+        >
+          <a href="/" aria-label="homepage">
+            <button className="bg-accent text-primary border-none rounded-md p-2 text-lg font-semibold cursor-pointer transition-all mb-4 absolute top-16 left-4 hidden sm:flex hover:bg-background-alt">
+              Go Back
+            </button>
+          </a>
+          <img src={profileImage} alt={name} loading="lazy" className="w-[250px] h-[250px] rounded-full object-cover shadow-md transition-transform duration-300 ease-in-out" />
+          <h2 className="p-4">{name}</h2>
+          <div className="w-full h-[20vh] sm:hidden">
             <EmbedSelector Music={music} />
-          </EmbedContainerA>
-          <Genres>Genre: {genre.length !== 0 ? genre.join(', ') : 'NA'}</Genres>
-          <LinkContainer musician={musician}></LinkContainer>
-        </MusicianPageContainerA>
-        <MusicianPageContainerB backgroundImage={profileImage}>
-          <EmbedContainer>
+          </div>
+          <p className="px-2 mt-2.5">Genre: {genre.length !== 0 ? genre.join(', ') : 'NA'}</p>
+          <LinkContainer musician={musician} />
+        </div>
+        <div
+          className="hidden sm:flex flex-col items-center justify-around w-full sm:w-2/3 box-shadow-inset p-8 bg-cover bg-center"
+          style={{ backgroundImage: `url(${profileImage})` }}
+        >
+          <div className="w-full h-full p-2 box-border">
             <EmbedSelector Music={music} />
-          </EmbedContainer>
-        </MusicianPageContainerB>
-      </MusicianPageBody>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
-
-const EmbedContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  padding: 0.5rem;
-  box-sizing: border-box;
-  @media (max-width: 768px) {
-    padding: 0;
-  }
-`;
-
-const EmbedContainerA = styled(EmbedContainer)`
-  max-height: 20vh;
-  @media (min-width: 768px) {
-    display: none;
-  }
-`;
-
-const MusicianPageBody = styled.div`
-  display: flex;
-  width: 100vw;
-  height: 92vh;
-  flex-basis: 100%;
-  box-sizing: border-box;
-  /* position: fixed; */
-  /* top: 12vh; */
-  @media (max-width: 768px) {
-    flex-direction: column;
-    justify-content: end;
-    overflow: hidden;
-    height: 92vh;
-  }
-`;
-
-const MusicianPageContainer = styled.div<{ backgroundImage: string }>`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  box-sizing: border-box;
-  justify-content: center;
-  padding: 2rem;
-`;
-
-const MusicianPageContainerA = styled(MusicianPageContainer)`
-  justify-content: center;
-  width: 30%;
-  background-color: var(--color-background-alt);
-  @media (max-width: 768px) {
-    background-color: var(--color-background-main);
-    width: 100%;
-    height: 100%;
-    justify-content: space-around;
-  }
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    transition:
-      filter var(--animation-speed-medium) ease,
-      opacity var(--animation-speed-medium) ease;
-    z-index: -1;
-  }
-
-  &::before {
-    background-image: url(${(props) => props.backgroundImage});
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    filter: blur(5px);
-  }
-
-  &::after {
-    background-color: rgba(0, 0, 0, 0.8);
-    opacity: 1;
-  }
-`;
-
-const MusicianPageContainerB = styled(MusicianPageContainer)`
-  justify-content: space-around;
-  width: 70%;
-  box-shadow: inset 0px 0px 10px 0px var(--color-shadow);
-  @media (max-width: 768px) {
-    display: none;
-    width: 100%;
-    padding: 0;
-    justify-content: start;
-    box-shadow: none;
-    background-color: var(--color-background-main);
-  }
-`;
-
-export const BackButton = styled.button`
-  background-color: var(--color-accent);
-  color: var(--color-text-primary);
-  border: none;
-  border-radius: 5px;
-  padding: 0.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--animation-speed-medium) ease;
-  margin-bottom: 1rem;
-  display: flex;
-  align-self: start;
-  position: absolute;
-  top: 15vh;
-  left: 1rem;
-  &:hover {
-    background-color: var(--color-background-alt);
-  }
-  @media (max-width: 768px) {
-    visibility: hidden;
-  }
-`;
-
-const CardTitle = styled(CardTitleBase)`
-  padding: 1rem;
-`;
 
 export default MusicianPage;

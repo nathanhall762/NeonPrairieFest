@@ -1,19 +1,3 @@
-import styled from 'styled-components';
-
-const Link = styled.a<{ $linkName: string }>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.5rem;
-  width: 3rem;
-  height: 3rem;
-  transition: all var(--animation-speed-medium) ease;
-  &:hover {
-    transform: scale(1.5);
-    color: var(--${(props) => props.$linkName}-color);
-  }
-`;
-
 interface LinkItemProps {
   url: string | null;
   iconClassName: string;
@@ -32,7 +16,8 @@ const LinkItem: React.FC<LinkItemProps> = ({
       href={url}
       target='_blank'
       rel='noopener noreferrer'
-      // $linkName={styleClassName}
+      className='flex h-12 w-12 items-center justify-center text-xl transition-all duration-300 ease-in-out hover:scale-150'
+      style={{ color: `var(--${styleClassName}-color)` }}
       aria-label={styleClassName}
     >
       <i className={iconClassName} aria-hidden='true'></i>

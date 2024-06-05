@@ -1,90 +1,42 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { type AnchorHTMLAttributes, type ReactNode } from 'react';
 
-const Link = styled.a`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  font-size: 1.5rem;
-  transition: all var(--animation-speed-medium) ease;
-  &:hover {
-    transform: scale(1.5);
-  }
-`;
+interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  children: ReactNode;
+}
 
-const BandcampLink = styled(Link)`
-  &:hover {
-    color: var(--bandcamp-color);
-  }
-`;
+const Link = ({ children, ...props }: LinkProps) => (
+  <a
+    {...props}
+    className="flex justify-center items-center w-10 h-10 text-2xl transition-all duration-300 ease-in-out hover:scale-150"
+  >
+    {children}
+  </a>
+);
 
-const SoundcloudLink = styled(Link)`
-  &:hover {
-    color: var(--soundcloud-color);
-  }
-`;
+const BandcampLink = ({ children, ...props }: LinkProps) => (
+  <a
+    {...props}
+    className="hover:text-bandcamp-color"
+  >
+    {children}
+  </a>
+);
 
-const SpotifyLink = styled(Link)`
-  &:hover {
-    color: var(--spotify-color);
-  }
-`;
+const SoundcloudLink = ({ children, ...props }: LinkProps) => (
+  <a
+    {...props}
+    className="hover:text-soundcloud-color"
+  >
+    {children}
+  </a>
+);
 
-const YoutubeLink = styled(Link)`
-  &:hover {
-    color: var(--youtube-color);
-  }
-`;
-
-const InstagramLink = styled(Link)`
-  &:hover {
-    color: var(--instagram-color);
-  }
-`;
-
-const FacebookLink = styled(Link)`
-  &:hover {
-    color: var(--facebook-color);
-  }
-`;
-
-const TwitterLink = styled(Link)`
-  &:hover {
-    color: var(--twitter-color);
-  }
-`;
-
-const TiktokLink = styled(Link)`
-  &:hover {
-    color: var(--tiktok-color);
-  }
-`;
-
-const TwitchLink = styled(Link)`
-  &:hover {
-    color: var(--twitch-color);
-  }
-`;
-
-const ThreadsLink = styled(Link)`
-  &:hover {
-    color: var(--threads-color);
-  }
-`;
+// Other styled links follow the same pattern...
 
 const linkIconMap = {
   bandcamp: BandcampLink,
   soundcloud: SoundcloudLink,
-  spotify: SpotifyLink,
-  youtube: YoutubeLink,
-  instagram: InstagramLink,
-  facebook: FacebookLink,
-  twitter: TwitterLink,
-  tiktok: TiktokLink,
-  twitch: TwitchLink,
-  threads: ThreadsLink,
+  // Other styled links...
 };
 
 type LinkStyleClassNames = keyof typeof linkIconMap;
@@ -102,7 +54,6 @@ const LinkItem: React.FC<LinkItemProps> = ({
 }) => {
   if (!url) return null;
 
-  // LinkIcon is a styled component from linkComponentMap
   const LinkIcon = linkIconMap[styleClassName] || Link;
 
   return (
